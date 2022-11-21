@@ -1,0 +1,54 @@
+version: "3"
+
+services:
+  # Setup Meilisearch instance
+  meilisearch:
+    image: getmeili/meilisearch
+    environment:
+      - MEILI_MASTER_KEY=$MEILI_MASTER_KEY
+      - MEILI_ENV=production
+    restart: unless-stopped
+    ports:
+      - 7700:7700
+    volumes:
+      - ba-meilidata:/meili_data
+
+  # Redis for session and file cache
+  redis:
+    image: redis
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    restart: unless-stopped
+
+  # Bar Assistant API
+  bar-assistant:
+    image: kmikus12/bar-assistant-server
+    depends_on:
+      - meilisearch
+      - redis
+    environment:
+      - APP_URL=$API_URL
+      - MEILISEARCH_KEY=$MEILI_MASTER_KEY
+      - MEILISEARCH_HOST=$MEILI_HOST
+      - REDIS_HOST=redis
+    restart: unless-stopped
+    volumes:
+      - ba-storage:/var/www/cocktails/storage
+    ports:
+      - 8000:80
+
+  # Bar Assistant Client
+  salt-rim:
+    image: kmikus12/salt-rim
+    depends_on:
+      - meilisearch
+      - bar-assistant
+    environment:
+      - API_URL=$API_URL
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+
+volumes:
+  ba-meilidata:
+  ba-storage:
