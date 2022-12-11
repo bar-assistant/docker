@@ -3,7 +3,7 @@ version: "3"
 services:
   # Setup Meilisearch instance
   meilisearch:
-    image: getmeili/meilisearch
+    image: getmeili/meilisearch:v0.29
     environment:
       - MEILI_MASTER_KEY=$MEILI_MASTER_KEY
       - MEILI_ENV=production
