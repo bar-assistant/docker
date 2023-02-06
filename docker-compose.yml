@@ -17,20 +17,22 @@ services:
     restart: unless-stopped
 
   bar-assistant:
-    image: bar-assistant:volume-fix
+    image: bar-assistant/server:latest
     environment:
-      - APP_URL=http://localhost:3000/bar
+      - APP_URL=$API_URL
       - MEILISEARCH_KEY=$MEILI_MASTER_KEY
       - MEILISEARCH_HOST=http://meilisearch:7700
       - REDIS_HOST=redis
+      - ALLOW_REGISTRATION=true
     restart: unless-stopped
     volumes:
       - ./bar:/var/www/cocktails/storage/bar-assistant
 
   salt-rim:
-    image: kmikus12/salt-rim
+    image: bar-assistant/salt-rim:latest
     environment:
-      - API_URL=http://localhost:3000/bar
+      - API_URL=$API_URL
+      - MEILISEARCH_URL=$MEILISEARCH_URL
     restart: unless-stopped
 
   webserver:
