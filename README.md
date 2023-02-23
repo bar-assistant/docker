@@ -2,13 +2,13 @@
 
 Fast start with the bar assistant server, search and client.
 
-Required ENV variables:
+You can checkout [the official documentation here](https://bar-assistant.github.io/docs).
 
-| Variable | Description | Example |
-| - | - | - |
-| API_URL | Bar Assistant API URL, needs to be accessible from client | http://localhost:8000 |
-| MEILI_HOST | Meilisearch server URL, needs to be accessible from client | http://localhost:7700 |
-| MEILI_MASTER_KEY | [Meilisearch key](https://docs.meilisearch.com/learn/security/master_api_keys.html), should be a random string | masterKey |
+## Installation
+
+1. Clone the repository
+2. Update `.env` settings
+3. Run `docker compose up -d`
 
 Default login information is:
 
