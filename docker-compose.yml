@@ -39,6 +39,8 @@ services:
     environment:
       - API_URL=$API_URL
       - MEILISEARCH_URL=$MEILISEARCH_URL
+      - BAR_NAME=$BAR_NAME
+      - DESCRIPTION=$BAR_DESCRIPTION
     restart: unless-stopped
 
   webserver:
