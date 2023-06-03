@@ -28,6 +28,7 @@ services:
       - MEILISEARCH_HOST=http://meilisearch:7700
       - REDIS_HOST=redis
       - ALLOW_REGISTRATION=true
+      # - DISABLE_LOGIN=true # Optional if you want to disable auth
     restart: unless-stopped
     volumes:
       - bar_data:/var/www/cocktails/storage/bar-assistant
@@ -42,6 +43,7 @@ services:
       - BAR_NAME=$BAR_NAME
       - DESCRIPTION=$BAR_DESCRIPTION
       - DEFAULT_LOCALE=en-US
+      # - DISABLE_LOGIN=true # Optional if you want to disable auth
     restart: unless-stopped
 
   webserver:
