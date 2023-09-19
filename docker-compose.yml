@@ -34,7 +34,7 @@ services:
       redis:
         condition: service_healthy
     environment:
-      - APP_URL=http://localhost:3000
+      - APP_URL=$API_URL
       - LOG_CHANNEL=stderr
       - MEILISEARCH_KEY=$MEILI_MASTER_KEY
       - MEILISEARCH_HOST=http://meilisearch:7700
