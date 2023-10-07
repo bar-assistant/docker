@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   meilisearch:
-    image: getmeili/meilisearch:v1.2
+    image: getmeili/meilisearch:v1.4
     environment:
       - MEILI_MASTER_KEY=$MEILI_MASTER_KEY
       - MEILI_ENV=production
@@ -27,7 +27,7 @@ services:
       retries: 30
 
   bar-assistant:
-    image: barassistant/server:latest
+    image: barassistant/server:v3
     depends_on:
       meilisearch:
         condition: service_healthy
@@ -39,9 +39,7 @@ services:
       - MEILISEARCH_KEY=$MEILI_MASTER_KEY
       - MEILISEARCH_HOST=http://meilisearch:7700
       - REDIS_HOST=redis
-      - IMPORT_DEFAULT_DATA=$IMPORT_DEFAULT_DATA
       - ALLOW_REGISTRATION=true
-      # - DISABLE_LOGIN=true # Optional if you want to disable auth
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000"]
@@ -52,17 +50,14 @@ services:
       - bar_data:/var/www/cocktails/storage/bar-assistant
 
   salt-rim:
-    image: barassistant/salt-rim:latest
+    image: barassistant/salt-rim:v2
     depends_on:
       bar-assistant:
         condition: service_healthy
     environment:
       - API_URL=$API_URL
       - MEILISEARCH_URL=$MEILISEARCH_URL
-      - BAR_NAME=$BAR_NAME
-      - DESCRIPTION=$BAR_DESCRIPTION
       - DEFAULT_LOCALE=en-US
-      # - DISABLE_LOGIN=true # Optional if you want to disable auth
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080"]
