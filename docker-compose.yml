@@ -37,7 +37,7 @@ services:
       - bar_data:/var/www/cocktails/storage/bar-assistant
 
   salt-rim:
-    image: barassistant/salt-rim:v3
+    image: barassistant/salt-rim:v4
     depends_on:
       - bar-assistant
     environment:
