@@ -6,6 +6,7 @@ services:
   meilisearch:
     image: getmeili/meilisearch:v1.12 # Never use latest tag
     environment:
+      - MEILI_NO_ANALYTICS=true
       - MEILI_MASTER_KEY=$MEILI_MASTER_KEY
       - MEILI_ENV=production
     restart: unless-stopped
