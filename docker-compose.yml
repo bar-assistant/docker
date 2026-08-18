@@ -4,7 +4,7 @@ volumes:
 
 services:
   meilisearch:
-    image: getmeili/meilisearch:v1.15 # Never use latest tag
+    image: getmeili/meilisearch:v1.50 # Never use latest tag
     environment:
       - MEILI_NO_ANALYTICS=true
       - MEILI_MASTER_KEY=$MEILI_MASTER_KEY
@@ -23,7 +23,7 @@ services:
     restart: unless-stopped
 
   bar-assistant:
-    image: barassistant/server:v5
+    image: barassistant/server:v6
     depends_on:
       - meilisearch
       - redis # Remove if not using redis
@@ -42,7 +42,7 @@ services:
       - bar_data:/var/www/cocktails/storage/bar-assistant
 
   salt-rim:
-    image: barassistant/salt-rim:v4
+    image: barassistant/salt-rim:v5
     depends_on:
       - bar-assistant
     environment:
